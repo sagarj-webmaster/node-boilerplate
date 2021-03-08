@@ -16,9 +16,6 @@ export class App {
         this.express = express();
         this.httpServer = http.createServer(this.express);
         this.express.use(this.setupCors);
-        // Set EJS as templating engine
-        this.express.set("view engine", "ejs");
-
         this.setupMiddleware();
         registerRoutes(this.express);
     }
