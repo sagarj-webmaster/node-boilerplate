@@ -1,5 +1,5 @@
 import * as express from 'express';
-import { sampleRoutes } from './components/auth/SampleRoutes';
+import { sampleRoutes } from './components/sample/SampleRoutes';
 
 export function registerRoutes(app: express.Express): any {
 
