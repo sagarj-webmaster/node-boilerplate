@@ -3,6 +3,7 @@ import * as express from 'express';
 import * as http from 'http';
 import * as path from 'path';
 import * as session from "express-session";
+import { Connection, ConnectionNotFoundError, createConnection, getConnection, getConnectionOptions } from 'typeorm';
 import { registerRoutes } from './routes';
 
 /**
@@ -17,7 +18,26 @@ export class App {
         this.httpServer = http.createServer(this.express);
         this.express.use(this.setupCors);
         this.setupMiddleware();
+        this.dbConnection();
         registerRoutes(this.express);
+    }
+
+    private async dbConnection() {
+        let connection: Connection;
+
+        try {
+            connection = getConnection();
+
+            if (!connection.isConnected) {
+                await connection.connect();
+            }
+        } catch (e) {
+            if (e instanceof ConnectionNotFoundError) {
+                let connectionOptions: any = await getConnectionOptions();
+                connection = await createConnection(connectionOptions);
+            }
+            return connection;
+        }
     }
 
     private setupMiddleware(): void {
