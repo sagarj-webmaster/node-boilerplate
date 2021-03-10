@@ -9,7 +9,6 @@ export class FactoryRepository {
     return this.factoryRepository.findOne(filters)
   }
 
-
   public find(filters?: any): Promise<Factory[]> {
     return this.factoryRepository.find(filters)
   }
