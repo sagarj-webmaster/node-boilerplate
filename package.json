@@ -18,6 +18,7 @@
   "author": "Santosh Shinde",
   "license": "",
   "dependencies": {
+    "@types/axios": "^0.14.0",
     "@types/body-parser": "^1.17.0",
     "@types/cheerio": "^0.22.10",
     "@types/express": "^4.16.0",

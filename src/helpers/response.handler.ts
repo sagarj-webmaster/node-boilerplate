@@ -45,5 +45,5 @@ export const JSONSUCCESS = (req: Request, res: Response) => {
         obj.message = res.locals.message;
     }
 
-    res.status(HttpStatus.OK).send(obj);
+    res.status(HttpStatus.StatusCodes.OK).send(obj);
 }
