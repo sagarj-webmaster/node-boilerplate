@@ -9,6 +9,20 @@ export function factoryRoutes(app: express.Express, router: any) : any {
 
 
 
+    const GetCustomerByExtId = async (request: express.Request, response: express.Response, next: any) => {
+        try {
+            const controller: FactoryController = new FactoryController();
+            const result: any = await controller.GetCustomerByExtId(request.body);
+            response.locals.data = result.data;
+            ResponseHandler.JSONSUCCESS(request, response);
+
+        } catch (err) {
+            response.locals.errorCode = StatusCodes.UNAUTHORIZED;
+            response.locals.errors = err.message;
+            response.locals.error = err;
+            ResponseHandler.JSONERROR(request, response);
+        }
+    }
     const getFactory = async (request: express.Request, response: express.Response, next: any) => {
         try {
             const controller: FactoryController = new FactoryController();
@@ -40,6 +54,7 @@ export function factoryRoutes(app: express.Express, router: any) : any {
     }
 
 
+    router.get('/factory/GetCustomerByExtId', GetCustomerByExtId);
     router.get('/factory/:id', getFactory);
     router.post('/factory', saveFactory);
 }
